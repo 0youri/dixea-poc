@@ -1,13 +1,16 @@
 <template>
-  <div v-if="site" class="py-10 text-center flex flex-col gap-5 items-center">
-    <div class="flex items-center gap-2 text-5xl font-bold text-slate-100 text-center">
+  <div v-if="site" class="py-10 text-center flex flex-col gap-10 items-center">
+    <NuxtLink to="/" aria-label="Back to homepage">
+        <UIcon name="ion:md-return-left" class="text-lg" />
+    </NuxtLink>
+    <div class="flex items-center gap-2 text-5xl font-bold text-slate-100">
         <UIcon v-if="site.logo" :name="site.logo" />
         <h1>    
             {{ site.title }}
         </h1>
     </div>
     <p class="font-medium text-lg">{{ site.description }}</p>
-    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-10">
+    <div v-if="!site.pieces?.length" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-10">
         <UCard
             v-for="piece in site.pieces"
             :key="piece.id"
@@ -27,6 +30,7 @@
 
         </UCard>
     </div>
+    <p v-else class="text-slate-400 italic">No content available</p>
   </div>
 </template>
 
@@ -38,8 +42,15 @@
     const site = ref<Site | null>(null)
 
     const getSite = async (slug: string) => {
-        const data = await findOne<Site>('sites', slug)
-        site.value = data
+        try{
+            const data = await findOne<Site>('sites', slug)
+            console.log('site', data)
+
+            site.value = data
+        } catch (error) {
+            console.error('Error fetching site:', error)
+            navigateTo('/')
+        }
     }
 
     onMounted(async () => {

@@ -2,10 +2,17 @@
  * site router
  */
 
-import { factories } from '@strapi/strapi';
 
 export default {
     routes: [
+      {
+        method: 'GET',
+        path: '/sites',
+        handler: 'site.find',
+        config: {
+          auth: false,
+        },
+      },
       {
         method: 'GET',
         path: '/sites/:slug',
@@ -14,6 +21,5 @@ export default {
           auth: false,
         },
       },
-
     ],
   };
