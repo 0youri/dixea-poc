@@ -1,6 +1,6 @@
 <template>
   <div class="justify-center flex flex-col gap-5 items-center h-screen">
-    <div class="text-5xl font-bold text-slate-100">Welcome to DEXIA PoC</div>
+    <div class="text-5xl font-bold text-slate-100">Welcome to DIXEA PoC</div>
     <div class="text-xl font-medium text-slate-300">Choose your site</div>
     <div class="flex flex-col gap-5 item-stretch">
       <UButton

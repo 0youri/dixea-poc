@@ -10,7 +10,7 @@
         </h1>
     </div>
     <p class="font-medium text-lg">{{ site.description }}</p>
-    <div v-if="!site.pieces?.length" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-10">
+    <div v-if="site.pieces?.length" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-10">
         <UCard
             v-for="piece in site.pieces"
             :key="piece.id"
