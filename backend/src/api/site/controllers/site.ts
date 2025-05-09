@@ -45,7 +45,7 @@ export default factories.createCoreController('api::site.site', ({ strapi }) => 
         });
     
         if (data) {
-        await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
+            await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
         }
         
         return data || null;
