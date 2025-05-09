@@ -1,0 +1,23 @@
+# Use the official Node.js image as the base image
+FROM node:20-alpine
+
+# Set the working directory
+WORKDIR /frontend
+
+# Define the environment variable
+ARG ENV_FILE
+
+# Copy all frontend files
+COPY frontend .
+
+# Install dependencies
+RUN npm install
+
+# Build the app
+RUN npm run build
+
+# Expose the port
+EXPOSE 3000
+
+# Run the app
+CMD ["npm", "run", "preview"]

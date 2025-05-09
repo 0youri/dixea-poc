@@ -1,0 +1,45 @@
+services:
+  poc_frontend:
+    image: poc_frontend
+    container_name: poc_frontend
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - poc-network
+    depends_on:
+      - poc_backend
+  
+  poc_backend:
+    image: poc_backend
+    container_name: poc_backend
+    env_file: .env.backend
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+      args:
+        ENV_FILE: docker/.env.backend 
+    ports:
+      - "1337:1337"
+    networks:
+      - poc-network
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - poc-network
+
+networks:
+  poc-network:
+    name: poc-network
+    driver: bridge
+
+  
